@@ -1,36 +1,49 @@
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Name:		handbrake
-Version:	0.9.5
-Release:	0.1
+Version:	1.0.7
+Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
 URL:		http://handbrake.fr/
-# in order to get HandBrake to identify itself as version 0.9.5 rather
-# than svn rev3735 the source code tarball has been generated as follows:
-# svn co -r 3735 svn://svn.handbrake.fr/HandBrake/tags/0.9.5 HandBrake-0.9.5
-# tar cvfj HandBrake-0.9.5.tar.bz2 HandBrake-0.9.5/
-Source0:	HandBrake-%{version}.tar.bz2
-# Source0-md5:	31e75e6d26ed02a2355e1b898d4587a4
+Source0:	https://handbrake.fr/mirror/HandBrake-%{version}.tar.bz2
+# Source0-md5:	bf39fcc56a82ccca32a9faac8fa633f5
 # Source1 is a tarball of the downloads/ folder that contains third party
 # libraries required and automatically downloaded by HandBrake the first
 # time 'make' is run. If you update Source0 to a newer release you must
 # recreate an updated Source1 tarball for it too!
-Source1:	HandBrake-%{version}-contrib-tarballs.tar.bz2
-# Source1-md5:	4a5c76949ebe23210d5e21c2a316b308
-Patch0:		disable-download.patch
+Source1:	HandBrake-%{version}-contrib-tarballs.tar.xz
+# Source1-md5:	a9971ac38ce9954f7c5be91f39596899
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	bzip2-devel
+BuildRequires:	cmake
 BuildRequires:	curl-devel
 BuildRequires:	dbus-glib-devel
+BuildRequires:	fontconfig-devel
+BuildRequires:	freetype-devel
+BuildRequires:	fribidi-devel
 BuildRequires:	glib2-devel
 BuildRequires:	gstreamer-devel
 BuildRequires:	gstreamer-plugins-base-devel
-BuildRequires:	gtk+2-devel
-BuildRequires:	gtk-webkit-devel
+BuildRequires:	gtk+3-devel
+BuildRequires:	gtk-webkit3-devel
+BuildRequires:	harfbuzz-devel
 BuildRequires:	intltool
+BuildRequires:	jansson-devel
+BuildRequires:	lame-libs-devel
+BuildRequires:	libass-devel
 BuildRequires:	libnotify-devel
+BuildRequires:	libogg-devel
+BuildRequires:	libsamplerate-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtheora-devel
 BuildRequires:	libtool
+BuildRequires:	libvorbis-devel
+BuildRequires:	libx264-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	m4
+BuildRequires:	opus-devel
+BuildRequires:	pkgconfig
 BuildRequires:	python
 BuildRequires:	subversion
 BuildRequires:	udev-glib-devel
@@ -45,10 +58,9 @@ multi-threaded transcoder, available for MacOS X, Linux and Windows.
 %package gui
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Group:		Applications/Multimedia
-Requires:	gstreamer-ffmpeg
 Requires:	gstreamer-plugins-bad
 Requires:	gstreamer-plugins-ugly
-Requires:	gtk+2
+Requires:	gtk+3
 Requires:	libdvdcss
 Obsoletes:	HandBrake
 Obsoletes:	handbrake
@@ -75,18 +87,14 @@ This is the CLI tool version of HandBrake.
 
 %prep
 %setup -q -n HandBrake-%{version} -a1
-%patch0 -p1
-
-install -d _docs
-iconv -f ISO-8859-1 -t UTF-8 CREDITS > _docs/CREDITS
-iconv -f ISO-8859-1 -t UTF-8 THANKS > _docs/THANKS
 
 %build
 export CFLAGS="%{rpmcflags}"
 export CXXFLAGS="%{rpmcxxflags}"
 export LDFLAGS="%{rpmldflags}"
 ./configure \
-	--prefix=%{_prefix}
+	--prefix=%{_prefix} \
+	--disable-df-fetch
 %{__make} -C build
 
 %install
@@ -99,25 +107,29 @@ EOF
 %{__make} -C build install
 
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/icon-theme.cache
-install -Dp gtk/src/hb-icon.64.png \
-      $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/64x64/apps/hb-icon.png
+
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/it{_IT,}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/ja{_JP,}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{no,nb}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/ro{_RO,}
+
+%find_lang ghb
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post gui
-%update_icon_cache_post hicolor
+%update_icon_cache hicolor
 
 %postun gui
-%update_icon_cache_post hicolor
+%update_icon_cache hicolor
 
-%files gui
+%files gui -f ghb.lang
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING _docs/CREDITS NEWS _docs/THANKS TRANSLATIONS
+%doc COPYING AUTHORS.markdown NEWS.markdown README.markdown THANKS.markdown
 %attr(755,root,root) %{_bindir}/ghb
 %{_desktopdir}/ghb.desktop
-%{_iconsdir}/hicolor/64x64/apps/hb-icon.png
-%{_iconsdir}/hicolor/128x128/apps/hb-icon.png
+%{_iconsdir}/hicolor/scalable/apps/hb-icon.svg
 
 %files cli
 %defattr(644,root,root,755)
