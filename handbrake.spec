@@ -49,6 +49,7 @@ BuildRequires:	subversion
 BuildRequires:	udev-glib-devel
 BuildRequires:	yasm
 BuildRequires:	zlib-devel
+ExclusiveArch:	%{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
