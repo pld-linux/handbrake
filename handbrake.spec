@@ -1,7 +1,7 @@
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Name:		handbrake
 Version:	1.1.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Multimedia
 URL:		http://handbrake.fr/
