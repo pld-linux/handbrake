@@ -1,18 +1,18 @@
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Name:		handbrake
-Version:	1.1.1
-Release:	2
+Version:	1.2.2
+Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
 URL:		http://handbrake.fr/
 Source0:	https://download2.handbrake.fr/%{version}/HandBrake-%{version}-source.tar.bz2
-# Source0-md5:	8b605d62cc6dd63bb8918dc6b47d4ee3
+# Source0-md5:	282924665fa45b3b08fef66b51beaac5
 # Source1 is a tarball of the downloads/ folder that contains third party
 # libraries required and automatically downloaded by HandBrake the first
 # time 'make' is run. If you update Source0 to a newer release you must
 # recreate an updated Source1 tarball for it too!
 Source1:	HandBrake-%{version}-contrib-tarballs.tar
-# Source1-md5:	1f50c8c7f4ff2b7f8bd498dd92557587
+# Source1-md5:	226891f181995e2ea7c8ab018def2b46
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -129,8 +129,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc COPYING AUTHORS.markdown NEWS.markdown README.markdown THANKS.markdown
 %attr(755,root,root) %{_bindir}/ghb
-%{_desktopdir}/ghb.desktop
+%{_desktopdir}/fr.handbrake.ghb.desktop
 %{_iconsdir}/hicolor/scalable/apps/hb-icon.svg
+%{_iconsdir}/hicolor/scalable/apps/fr.handbrake.ghb.svg
 %{_datadir}/metainfo/fr.handbrake.ghb.appdata.xml
 
 %files cli
