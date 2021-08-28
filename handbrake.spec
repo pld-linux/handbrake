@@ -1,18 +1,18 @@
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Name:		handbrake
-Version:	1.2.2
+Version:	1.4.1
 Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
-URL:		http://handbrake.fr/
-Source0:	https://download2.handbrake.fr/%{version}/HandBrake-%{version}-source.tar.bz2
-# Source0-md5:	282924665fa45b3b08fef66b51beaac5
+Source0:	https://github.com/HandBrake/HandBrake/releases/download/%{version}/HandBrake-%{version}-source.tar.bz2
+# Source0-md5:	73fe8df8340ac7b7c23a8c09974d6906
 # Source1 is a tarball of the downloads/ folder that contains third party
 # libraries required and automatically downloaded by HandBrake the first
 # time 'make' is run. If you update Source0 to a newer release you must
 # recreate an updated Source1 tarball for it too!
 Source1:	HandBrake-%{version}-contrib-tarballs.tar
-# Source1-md5:	226891f181995e2ea7c8ab018def2b46
+# Source1-md5:	11691c785ee60b58651c5405eeeb5f22
+URL:		https://handbrake.fr/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -49,8 +49,11 @@ BuildRequires:	subversion
 BuildRequires:	udev-glib-devel
 BuildRequires:	yasm
 BuildRequires:	zlib-devel
+BuildConflicts:	libudfread-devel
 ExclusiveArch:	%{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_debugsource_packages	0
 
 %description
 HandBrake is an open-source, GPL-licensed, multi-platform,
@@ -94,13 +97,23 @@ export CFLAGS="%{rpmcflags}"
 export CXXFLAGS="%{rpmcxxflags}"
 export LDFLAGS="%{rpmldflags}"
 ./configure \
+	--force \
 	--prefix=%{_prefix} \
 	--disable-df-fetch
+
+cat > build/GNUmakefile.custom.defs <<EOF
+STRIP.exe = /bin/true
+BUILD.jobs = %{__jobs}
+GCC.args.g.none = %{rpmcflags}
+GCC.args.O.speed = %{rpmcflags}
+EOF
+
 %{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cat > build/GNUmakefile.custom.defs <<EOF
+STRIP.exe = /bin/true
 CONF.args = --prefix=$RPM_BUILD_ROOT%{_prefix}
 PREFIX    = $RPM_BUILD_ROOT%{_prefix}
 PREFIX/   = $RPM_BUILD_ROOT%{_prefix}/
@@ -109,10 +122,9 @@ EOF
 
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/icon-theme.cache
 
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/it{_IT,}
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/ja{_JP,}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/sl{_SI,}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/uk{_UA,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{no,nb}
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/ro{_RO,}
 
 %find_lang ghb
 
@@ -132,7 +144,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/fr.handbrake.ghb.desktop
 %{_iconsdir}/hicolor/scalable/apps/hb-icon.svg
 %{_iconsdir}/hicolor/scalable/apps/fr.handbrake.ghb.svg
-%{_datadir}/metainfo/fr.handbrake.ghb.appdata.xml
+%{_datadir}/metainfo/fr.handbrake.ghb.metainfo.xml
 
 %files cli
 %defattr(644,root,root,755)
