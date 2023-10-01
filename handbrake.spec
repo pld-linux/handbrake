@@ -46,6 +46,7 @@ BuildRequires:	m4
 BuildRequires:	opus-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python
+BuildRequires:	rpmbuild(macros) >= 2.005
 BuildRequires:	subversion
 BuildRequires:	udev-glib-devel
 BuildRequires:	yasm
