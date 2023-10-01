@@ -64,6 +64,7 @@ multi-threaded transcoder, available for MacOS X, Linux and Windows.
 %package gui
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Group:		Applications/Multimedia
+Requires(post,postun):	desktop-file-utils
 Requires:	gstreamer-plugins-bad
 Requires:	gstreamer-plugins-ugly
 Requires:	gtk+3
@@ -137,9 +138,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post gui
 %update_icon_cache hicolor
+%update_desktop_database_post
 
 %postun gui
 %update_icon_cache hicolor
+%update_desktop_database_postun
 
 %files gui -f ghb.lang
 %defattr(644,root,root,755)
