@@ -12,6 +12,7 @@ Source0:	https://github.com/HandBrake/HandBrake/releases/download/%{version}/Han
 # recreate an updated Source1 tarball for it too!
 Source1:	HandBrake-%{version}-contrib-tarballs.tar
 # Source1-md5:	11691c785ee60b58651c5405eeeb5f22
+Patch0:		binutils2.41.patch
 URL:		https://handbrake.fr/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -91,6 +92,8 @@ This is the CLI tool version of HandBrake.
 
 %prep
 %setup -q -n HandBrake-%{version} -a1
+
+cp -p %{PATCH0} contrib/ffmpeg/A77-%{basename:%{PATCH0}}
 
 %build
 export CFLAGS="%{rpmcflags}"
