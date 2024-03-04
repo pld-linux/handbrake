@@ -1,4 +1,5 @@
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
+Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Name:		handbrake
 Version:	1.4.1
 Release:	4
@@ -61,21 +62,41 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 HandBrake is an open-source, GPL-licensed, multi-platform,
 multi-threaded transcoder, available for MacOS X, Linux and Windows.
 
-%package gui
+%description
+HandBrake to mający otwarte źródła, wydany na licencji GPL,
+wieloplatformowy, wielowątkowy program do przekodowywania filmów,
+dostępny dla systemów MacOS X, Linux i Windows.
+
+%package cli
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
+Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Group:		Applications/Multimedia
-Requires(post,postun):	desktop-file-utils
-Requires:	gstreamer-plugins-bad
-Requires:	gstreamer-plugins-ugly
-Requires:	gtk+3
 Requires:	libdvdcss
 Obsoletes:	HandBrake
 Obsoletes:	handbrake
 
-%package cli
+%description cli
+HandBrake is an open-source, GPL-licensed, multi-platform,
+multi-threaded transcoder, available for MacOS X, Linux and Windows.
+
+This is the CLI tool version of HandBrake.
+
+%description cli -l pl.UTF-8
+HandBrake to mający otwarte źródła, wydany na licencji GPL,
+wieloplatformowy, wielowątkowy program do przekodowywania filmów,
+dostępny dla systemów MacOS X, Linux i Windows.
+
+Ten pakiet zawiera HandBrake w postaci narzędzia linii poleceń.
+
+%package gui
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
+Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Group:		Applications/Multimedia
-Requires:	gtk-update-icon-cache
+Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	gstreamer-plugins-bad
+Requires:	gstreamer-plugins-ugly
+Requires:	gtk+3
 Requires:	libdvdcss
 Obsoletes:	HandBrake
 Obsoletes:	handbrake
@@ -86,11 +107,12 @@ multi-threaded transcoder, available for MacOS X, Linux and Windows.
 
 This is the GTK GUI version of HandBrake.
 
-%description cli
-HandBrake is an open-source, GPL-licensed, multi-platform,
-multi-threaded transcoder, available for MacOS X, Linux and Windows.
+%description gui -l pl.UTF-8
+HandBrake to mający otwarte źródła, wydany na licencji GPL,
+wieloplatformowy, wielowątkowy program do przekodowywania filmów,
+dostępny dla systemów MacOS X, Linux i Windows.
 
-This is the CLI tool version of HandBrake.
+Ten pakiet zawiera HandBrake z graficznym interfejsem GTK.
 
 %prep
 %setup -q -n HandBrake-%{version} -a1
@@ -144,6 +166,10 @@ rm -rf $RPM_BUILD_ROOT
 %update_icon_cache hicolor
 %update_desktop_database_postun
 
+%files cli
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/HandBrakeCLI
+
 %files gui -f ghb.lang
 %defattr(644,root,root,755)
 %doc COPYING AUTHORS.markdown NEWS.markdown README.markdown THANKS.markdown
@@ -152,7 +178,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/scalable/apps/hb-icon.svg
 %{_iconsdir}/hicolor/scalable/apps/fr.handbrake.ghb.svg
 %{_datadir}/metainfo/fr.handbrake.ghb.metainfo.xml
-
-%files cli
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/HandBrakeCLI
