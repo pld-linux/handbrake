@@ -72,8 +72,8 @@ Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Group:		Applications/Multimedia
 Requires:	libdvdcss
-Obsoletes:	HandBrake
-Obsoletes:	handbrake
+Obsoletes:	HandBrake < 1
+Obsoletes:	handbrake < 1
 
 %description cli
 HandBrake is an open-source, GPL-licensed, multi-platform,
@@ -98,8 +98,8 @@ Requires:	gstreamer-plugins-bad
 Requires:	gstreamer-plugins-ugly
 Requires:	gtk+3
 Requires:	libdvdcss
-Obsoletes:	HandBrake
-Obsoletes:	handbrake
+Obsoletes:	HandBrake < 1
+Obsoletes:	handbrake < 1
 
 %description gui
 HandBrake is an open-source, GPL-licensed, multi-platform,
