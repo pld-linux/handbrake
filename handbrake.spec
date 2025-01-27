@@ -135,15 +135,9 @@ EOF
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cat > build/GNUmakefile.custom.defs <<EOF
-STRIP.exe = /bin/true
-CONF.args = --prefix=$RPM_BUILD_ROOT%{_prefix}
-PREFIX    = $RPM_BUILD_ROOT%{_prefix}
-PREFIX/   = $RPM_BUILD_ROOT%{_prefix}/
-EOF
-%{__make} -C build install
 
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/icon-theme.cache
+%{__make} -C build install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/sl{_SI,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/uk{_UA,}
@@ -171,6 +165,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING AUTHORS.markdown NEWS.markdown README.markdown THANKS.markdown
 %attr(755,root,root) %{_bindir}/ghb
 %{_desktopdir}/fr.handbrake.ghb.desktop
-%{_iconsdir}/hicolor/scalable/apps/hb-icon.svg
 %{_iconsdir}/hicolor/scalable/apps/fr.handbrake.ghb.svg
 %{_datadir}/metainfo/fr.handbrake.ghb.metainfo.xml
