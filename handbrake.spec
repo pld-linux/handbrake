@@ -1,19 +1,18 @@
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Name:		handbrake
-Version:	1.4.1
-Release:	5
+Version:	1.9.0
+Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
 Source0:	https://github.com/HandBrake/HandBrake/releases/download/%{version}/HandBrake-%{version}-source.tar.bz2
-# Source0-md5:	73fe8df8340ac7b7c23a8c09974d6906
+# Source0-md5:	ebe3a23bcb66194b144240009cd8b7dc
 # Source1 is a tarball of the downloads/ folder that contains third party
 # libraries required and automatically downloaded by HandBrake the first
 # time 'make' is run. If you update Source0 to a newer release you must
 # recreate an updated Source1 tarball for it too!
 Source1:	HandBrake-%{version}-contrib-tarballs.tar
-# Source1-md5:	11691c785ee60b58651c5405eeeb5f22
-Patch0:		binutils2.41.patch
+# Source1-md5:	de3c724885c4fd10ee4bc7161747e17b
 URL:		https://handbrake.fr/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -28,7 +27,6 @@ BuildRequires:	glib2-devel
 BuildRequires:	gstreamer-devel
 BuildRequires:	gstreamer-plugins-base-devel
 BuildRequires:	gtk+3-devel
-BuildRequires:	gtk-webkit3-devel
 BuildRequires:	harfbuzz-devel
 BuildRequires:	intltool
 BuildRequires:	jansson-devel
@@ -62,7 +60,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 HandBrake is an open-source, GPL-licensed, multi-platform,
 multi-threaded transcoder, available for MacOS X, Linux and Windows.
 
-%description
+%description -l pl.UTF-8
 HandBrake to mający otwarte źródła, wydany na licencji GPL,
 wieloplatformowy, wielowątkowy program do przekodowywania filmów,
 dostępny dla systemów MacOS X, Linux i Windows.
@@ -116,8 +114,6 @@ Ten pakiet zawiera HandBrake z graficznym interfejsem GTK.
 
 %prep
 %setup -q -n HandBrake-%{version} -a1
-
-cp -p %{PATCH0} contrib/ffmpeg/A77-%{basename:%{PATCH0}}
 
 %build
 export CFLAGS="%{rpmcflags}"
