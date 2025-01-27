@@ -20,6 +20,7 @@ BuildRequires:	bzip2-devel
 BuildRequires:	cmake
 BuildRequires:	curl-devel
 BuildRequires:	dbus-glib-devel
+BuildRequires:	dovi_tool
 BuildRequires:	fontconfig-devel
 BuildRequires:	freetype-devel
 BuildRequires:	fribidi-devel
@@ -32,6 +33,7 @@ BuildRequires:	intltool
 BuildRequires:	jansson-devel
 BuildRequires:	lame-libs-devel
 BuildRequires:	libass-devel
+BuildRequires:	libdovi-devel
 BuildRequires:	libnotify-devel
 BuildRequires:	libogg-devel
 BuildRequires:	libsamplerate-devel
