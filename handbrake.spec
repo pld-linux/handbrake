@@ -2,7 +2,7 @@ Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Name:		handbrake
 Version:	1.9.0
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		Applications/Multimedia
 Source0:	https://github.com/HandBrake/HandBrake/releases/download/%{version}/HandBrake-%{version}-source.tar.bz2
