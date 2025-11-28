@@ -1,0 +1,12 @@
+--- HandBrake-1.10.2/contrib/libdav1d/module.defs~	2025-09-06 07:23:39.000000000 +0200
++++ HandBrake-1.10.2/contrib/libdav1d/module.defs	2025-11-28 15:33:29.973323151 +0100
+@@ -2,8 +2,7 @@
+ $(eval $(call import.MODULE.defs,LIBDAV1D,libdav1d))
+ $(eval $(call import.CONTRIB.defs,LIBDAV1D))
+ 
+-LIBDAV1D.FETCH.url     = https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs2/dav1d-1.5.1.tar.bz2
+-LIBDAV1D.FETCH.url    += https://code.videolan.org/videolan/dav1d/-/archive/1.5.1/dav1d-1.5.1.tar.bz2
++LIBDAV1D.FETCH.url     = https://download.videolan.org/videolan/dav1d/1.5.1/dav1d-1.5.1.tar.xz
+ LIBDAV1D.FETCH.sha256  = 4eddffd108f098e307b93c9da57b6125224dc5877b1b3d157b31be6ae8f1f093
+ 
+ LIBDAV1D.build_dir     = build/

@@ -1,3 +1,6 @@
+#
+# TODO: build with system dav1d, libbluray, libdvdnav, libdvdread
+#
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Name:		handbrake
@@ -9,8 +12,8 @@ Source0:	https://github.com/HandBrake/HandBrake/releases/download/%{version}/Han
 # Source0-md5:	031ea98553b4653fe75211dfec1485c2
 Source10:	https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v3.1.2/SVT-AV1-v3.1.2.tar.gz
 # Source10-md5:	77b9d52e8c26bacf8bca742f8448dbc1
-Source11:	https://code.videolan.org/videolan/dav1d/-/archive/1.5.1/dav1d-1.5.1.tar.bz2
-# Source11-md5:	40f852ee7a8db1d1d2b1add6234a667f
+Source11:	https://download.videolan.org/videolan/dav1d/1.5.1/dav1d-1.5.1.tar.xz
+# Source11-md5:	0ab0617fd17f0aa380a71bdc4a485315
 Source12:	https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.bz2
 # Source12-md5:	af1873e543460808f90c02e1a4e60d27
 Source13:	https://download.videolan.org/pub/videolan/libbluray/1.3.4/libbluray-1.3.4.tar.bz2
@@ -25,6 +28,7 @@ Source17:	https://github.com/HandBrake/HandBrake-contribs/releases/download/cont
 # Source17-md5:	7907fd71ff37449fe3613ce3343072b6
 Source18:	https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs2/zimg-snapshot-20250624.tar.gz
 # Source18-md5:	e97b457a54a83f72aedf413439728d0b
+Patch0:		dav1d-url.patch
 URL:		https://handbrake.fr/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -126,6 +130,7 @@ Ten pakiet zawiera HandBrake z graficznym interfejsem GTK.
 
 %prep
 %setup -q -n HandBrake-%{version}
+%patch -P0 -p1
 
 mkdir $RPM_BUILD_DIR/HandBrake-%{version}/download
 cp %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE17} %{SOURCE18} \
