@@ -1,18 +1,30 @@
 Summary:	A program to transcode DVDs and other sources to MPEG-4 and MKV
 Summary(pl.UTF-8):	Program do przekodowywania DVD i innych źródeł do formatów MPEG-4 i MKV
 Name:		handbrake
-Version:	1.9.0
-Release:	5
+Version:	1.10.2
+Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
 Source0:	https://github.com/HandBrake/HandBrake/releases/download/%{version}/HandBrake-%{version}-source.tar.bz2
-# Source0-md5:	ebe3a23bcb66194b144240009cd8b7dc
-# Source1 is a tarball of the downloads/ folder that contains third party
-# libraries required and automatically downloaded by HandBrake the first
-# time 'make' is run. If you update Source0 to a newer release you must
-# recreate an updated Source1 tarball for it too!
-Source1:	HandBrake-%{version}-contrib-tarballs.tar
-# Source1-md5:	de3c724885c4fd10ee4bc7161747e17b
+# Source0-md5:	031ea98553b4653fe75211dfec1485c2
+Source10:	https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v3.1.2/SVT-AV1-v3.1.2.tar.gz
+# Source10-md5:	77b9d52e8c26bacf8bca742f8448dbc1
+Source11:	https://code.videolan.org/videolan/dav1d/-/archive/1.5.1/dav1d-1.5.1.tar.bz2
+# Source11-md5:	40f852ee7a8db1d1d2b1add6234a667f
+Source12:	https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.bz2
+# Source12-md5:	af1873e543460808f90c02e1a4e60d27
+Source13:	https://download.videolan.org/pub/videolan/libbluray/1.3.4/libbluray-1.3.4.tar.bz2
+# Source13-md5:	c744e610f539ba4b31280185ad48f1e1
+Source14:	https://download.videolan.org/pub/videolan/libdvdnav/6.1.1/libdvdnav-6.1.1.tar.bz2
+# Source14-md5:	46c46cb0294fbd1fcb8a0181818dad15
+Source15:	https://download.videolan.org/pub/videolan/libdvdread/6.1.3/libdvdread-6.1.3.tar.bz2
+# Source15-md5:	3c58d1624a71a16ff40f55dbaca82523
+Source16:	https://github.com/FFmpeg/nv-codec-headers/releases/download/n13.0.19.0/nv-codec-headers-13.0.19.0.tar.gz
+# Source16-md5:	be320d5c194da4878ded13f82fb635d7
+Source17:	https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs2/x265-snapshot-20250729-13276.tar.gz
+# Source17-md5:	7907fd71ff37449fe3613ce3343072b6
+Source18:	https://github.com/HandBrake/HandBrake-contribs/releases/download/contribs2/zimg-snapshot-20250624.tar.gz
+# Source18-md5:	e97b457a54a83f72aedf413439728d0b
 URL:		https://handbrake.fr/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -113,7 +125,11 @@ dostępny dla systemów MacOS X, Linux i Windows.
 Ten pakiet zawiera HandBrake z graficznym interfejsem GTK.
 
 %prep
-%setup -q -n HandBrake-%{version} -a1
+%setup -q -n HandBrake-%{version}
+
+mkdir $RPM_BUILD_DIR/HandBrake-%{version}/download
+cp %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE17} %{SOURCE18} \
+	$RPM_BUILD_DIR/HandBrake-%{version}/download/
 
 %build
 export CFLAGS="%{rpmcflags}"
@@ -143,8 +159,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/co
 
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/sl{_SI,}
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/uk{_UA,}
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/{no,nb}
 
 %find_lang ghb
 
